@@ -1,0 +1,28 @@
+#!/bin/bash
+echo " "
+
+
+    echo -e "${YELLOW}################################################################################${END}"
+    echo -e "${YELLOW}#                             PARSING HTML                                     #${END}"
+    echo -e "${YELLOW}#                               xf3l193                                        #${END}"
+    echo -e "${YELLOW}################################################################################${END}"
+echo " "
+if [ "$1" == "" ]
+
+then
+
+	echo "PORTSCAN"
+	echo "Modo de uso: $0 site"
+	echo "Exemplo: $0 www.site.com"
+echo " "
+else
+
+wget $1 
+
+cat index.html | grep href | cut -d  "/" -f 3 | grep  "\." | cut -d '"' -f 1 | grep -v '<' > lista
+
+for url in $(cat lista);do host $url | grep "has address";done > enderecos
+
+rm -rf index.html && rm -rf lista
+
+fi
